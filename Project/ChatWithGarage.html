@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>GarageDiary Chat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 260px;
+            background: #fff;
+            border-right: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            transition: transform 0.3s ease;
+            z-index: 2;
+        }
+
+        .sidebar.hidden {
+            transform: translateX(-100%);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: purple;
+            margin-bottom: 30px;
+        }
+
+        .menu a {
+            display: block;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 16px;
+            transition: 0.2s;
+        }
+
+        .menu a.active {
+            background-color: purple;
+            color: white;
+            font-weight: bold;
+        }
+
+        .badge {
+            background-color: red;
+            color: white;
+            border-radius: 999px;
+            padding: 2px 8px;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+
+        .bottom-menu {
+            margin-top: auto;
+        }
+
+        .bottom-menu a {
+            display: block;
+            text-decoration: none;
+            color: purple;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .profile-photo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .username {
+            font-weight: bold;
+        }
+
+        .handle {
+            font-size: 13px;
+            color: #999;
+        }
+
+        /* CHAT SECTION */
+        .chat {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #f0f2f5;
+        }
+
+        .chat-header {
+            padding: 20px;
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chat-header strong {
+            font-size: 18px;
+        }
+
+        .chat-header .status {
+            font-size: 13px;
+            color: green;
+            margin-left: 10px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .message {
+            max-width: 70%;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+            border-radius: 10px;
+            line-height: 1.4;
+            font-size: 14px;
+        }
+
+        .message.bot {
+            background-color: #fff;
+            align-self: flex-start;
+            border: 1px solid #eee;
+            position: relative;
+        }
+
+        .message.user {
+            background-color: purple;
+            color: white;
+            align-self: flex-end;
+            display: flex;
+            align-items: center;
+        }
+
+        .message.user .avatar {
+            margin-left: 10px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 15px 20px;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 12px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            outline: none;
+        }
+
+        .chat-input button {
+            margin-left: 10px;
+            padding: 12px 20px;
+            background-color: purple;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* TOGGLE BUTTON FOR MOBILE */
+        .toggle-btn {
+            display: none;
+            font-size: 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                position: absolute;
+                height: 100%;
+                left: 0;
+                top: 0;
+                background: white;
+                z-index: 10;
+                transform: translateX(-100%);
+            }
+
+            .sidebar.visible {
+                transform: translateX(0);
+            }
+
+            .chat {
+                height: calc(100vh - 60px);
+            }
+
+            .toggle-btn {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+        <div class="logo">GarageDiary</div>
+        <nav class="menu">
+            <a href="#">👤 My Profile</a>
+            <a href="#">☆ Favourites</a>
+            <a href="#">↩️ Booking History</a>
+            <a href="#" class="active">💬 Chat with Garage</a>
+            <a href="#">🔔 Notification <span class="badge">10</span></a>
+        </nav>
+
+        <div class="bottom-menu">
+            <a href="#">Support</a>
+            <a href="#">Settings</a>
+            <div class="user-profile">
+                <img src="user-profile-3d-icon-avatar-600nw-2247726743.webp" alt="Profile" class="profile-photo" />
+                <div>
+                    <div class="username">Frankie Sullivan</div>
+                    <div class="handle">@frankie</div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- CHAT -->
+    <div class="chat">
+        <div class="chat-header">
+            <div style="display: flex; align-items: center;">
+                <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+                <div class="user-profile">
+                    <img src="user-profile-3d-icon-avatar-600nw-2247726743.webp" alt="Profile" class="profile-photo" />
+                    <div>
+                        <div class="username">AutoCare</div>
+                        <span class="status">online</span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                📞 📷 ⋮
+            </div>
+        </div>
+
+        <div class="chat-input">
+            <input type="text" placeholder="Type a message..." />
+            <button>Send</button>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("visible");
+        }
+    </script>
+</body>
+
+</html>
