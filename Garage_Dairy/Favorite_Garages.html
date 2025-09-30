@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Garage Diary - Favorite Garages</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary: purple;
+      --light: #f9fafb;
+      --gray: #e5e7eb;
+      --dark: #111827;
+      --accent: purple;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background: #f1f5f9;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 260px;
+      background: #fff;
+      border-right: 1px solid #ddd;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      transition: transform 0.3s ease;
+      z-index: 2;
+    }
+
+    .sidebar.hidden {
+      transform: translateX(-100%);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--primary);
+      margin-bottom: 30px;
+    }
+
+    .menu a {
+      display: block;
+      text-decoration: none;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      color: #333;
+      font-size: 16px;
+      transition: 0.2s;
+    }
+
+    .menu a.active {
+      background-color: var(--primary);
+      color: white;
+      font-weight: bold;
+    }
+
+    .badge {
+      background-color: red;
+      color: white;
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 12px;
+      margin-left: 5px;
+    }
+
+    .bottom-menu {
+      margin-top: auto;
+    }
+
+    .bottom-menu a {
+      display: block;
+      text-decoration: none;
+      color: var(--primary);
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .profile-photo {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .username {
+      font-weight: bold;
+    }
+
+    .handle {
+      font-size: 13px;
+      color: #999;
+    }
+
+    /* MAIN CONTENT */
+    .main {
+      flex: 1;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    .header {
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .toggle-btn {
+      font-size: 24px;
+      cursor: pointer;
+      display: none;
+    }
+
+    /* GARAGE GRID */
+    .garage-grid {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    /* GARAGE CARD */
+    .garage-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.06);
+      overflow: hidden;
+      transition: 0.2s;
+      height: 380px;
+    }
+
+    .garage-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    }
+
+    .garage-card img {
+      width: 100%;
+      height: 130px;
+      /* Smaller image height */
+      object-fit: cover;
+    }
+
+    .garage-card .content {
+      padding: 12px;
+    }
+
+    .garage-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      text-align: left;
+      /* Left aligned */
+      margin-bottom: 6px;
+      color: var(--dark);
+    }
+
+    .garage-card .location,
+    .garage-card .time {
+      font-size: 0.8rem;
+      color: gray;
+      margin-bottom: 4px;
+    }
+
+    .services {
+      margin-top: 8px;
+    }
+
+    .services span {
+      display: inline-block;
+      background: #f3f4f6;
+      padding: 3px 6px;
+      margin: 4px 4px 0 0;
+      border-radius: 5px;
+      font-size: 0.75rem;
+    }
+
+    .rating {
+      color: gold;
+      font-size: 0.9rem;
+      margin: 10px 0 5px 0;
+    }
+
+    .btn {
+      display: inline-block;
+      text-align: center;
+      width: 100%;
+      background: var(--accent);
+      color: white;
+      padding: 8px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+    /* RESPONSIVE */
+    @media(max-width: 768px) {
+      .toggle-btn {
+        display: block;
+      }
+
+      .sidebar {
+        position: fixed;
+        height: 100vh;
+        z-index: 1000;
+        left: -260px;
+        top: 0;
+        transition: left 0.3s;
+      }
+
+      .sidebar.show {
+        left: 0;
+      }
+
+      .main {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+    <div class="logo">GarageDiary</div>
+    <nav class="menu">
+      <a href="#">👤 My Profile</a>
+      <a href="#" class="active">☆ Favourites</a>
+      <a href="#">↩️ Booking History</a>
+      <a href="#">💬 Chat with Garage</a>
+      <a href="#">🔔 Notification <span class="badge">10</span></a>
+    </nav>
+
+    <div class="bottom-menu">
+      <a href="#">Support</a>
+      <a href="#">Settings</a>
+      <div class="user-profile">
+        <img src="user-profile-3d-icon-avatar-600nw-2247726743.webp" alt="Profile" class="profile-photo" />
+        <div>
+          <div class="username">Frankie Sullivan</div>
+          <div class="handle">@frankie</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main">
+    <div class="header">
+      <span class="toggle-btn" onclick="toggleSidebar()">☰</span>
+      <h1>Favorite Garages</h1>
+      <span>Your Handpicked list of top-rated garages.</span> 
+      <div class="fas fa-search search-icon"></div>
+      <div class="fas fa-bell notification-icon"></div>
+      <div class="fas fa-cog settings-icon"></div>
+    </div>
+    
+    <div class="garage-grid">
+      <!-- Garage Card Template -->
+      <div class="garage-card">
+        <img src="jakob-rosen-JUkrwViCvyE-unsplash.jpg" alt="Garage" />
+        <div class="content">
+          <h3>AutoCare Premium</h3>
+          <div class="time">Mon-Sat: 8:00 AM - 6:00 PM</div>
+          <div class="location">📍123 Auto Street, Carville, CA</div>
+          <div class="services">
+            <h5>Services</h5>
+            <span style="background:#e0f2fe">Oil Change - $45</span>
+            <span style="background:#dcfce7">Tire Rotation - $25</span>
+            <span style="background:#fef9c3">Brake Inspection - $30</span>
+          </div>
+          <h5>Rating</h5>
+          <div class="rating">★★★★★ 4.5 (250 reviews)</div>
+          <a href="#" class="btn">View Details</a>
+        </div>
+      </div>
+
+      <!-- Repeat the card -->
+      <div class="garage-card">
+        <img src="nina-mercado-e9YFrEBWit8-unsplash.jpg" alt="Garage" />
+        <div class="content">
+          <h3>Mechanic Masters</h3>
+          <div class="time">🕒Mon-Fri: 7:30 AM - 7:00 PM</div>
+          <div class="location">📍456 Gearshift Ave, Motor City, TX</div>
+          <div class="services">
+            <h5>Services</h5>
+            <span style="background:#e0f2fe">Oil Change - $45</span>
+            <span style="background:#dcfce7">Tire Rotation - $25</span>
+            <span style="background:#fef9c3">Brake Inspection - $30</span>
+          </div>
+          <h5>Rating</h5>
+          <div class="rating">★★★★★ 4.5 (250 reviews)</div>
+          <a href="#" class="btn">View Details</a>
+        </div>
+      </div>
+
+      <!-- Add more cards as needed -->
+      <div class="garage-card">
+        <img src="jakob-rosen-JUkrwViCvyE-unsplash.jpg" alt="Garage" />
+        <div class="content">
+          <h3>AutoCare Premium</h3>
+          <div class="time">🕒Mon-Fri: 7:30 AM - 7:00 PM</div>
+          <div class="location">📍456 Gearshift Ave, Motor City, TX 75001</div>
+          <div class="services">
+            <h5>Services</h5>
+            <span style="background:#e0f2fe">Oil Change - $45</span>
+            <span style="background:#dcfce7">Tire Rotation - $25</span>
+            <span style="background:#fef9c3">Brake Inspection - $30</span>
+          </div>
+          <h5>Rating</h5>
+          <div class="rating">★★★★★ 4.5 (250 reviews)</div>
+          <a href="#" class="btn">View Details</a>
+        </div>
+      </div>
+
+
+      <div class="garage-card">
+        <img src="jakob-rosen-JUkrwViCvyE-unsplash.jpg" alt="Garage" />
+        <div class="content">
+          <h3>AutoCare Premium</h3>
+          <div class="time">🕒Mon-Fri: 7:30 AM - 7:00 PM</div>
+          <div class="location">📍123 Auto Steet,Carville,CA 90210</div>
+          <div class="services">
+            <h5>Services</h5>
+            <span style="background:#e0f2fe">Oil Change - $45</span>
+            <span style="background:#dcfce7">Tire Rotation - $25</span>
+            <span style="background:#fef9c3">Brake Inspection - $30</span>
+          </div>
+          <h5>Rating</h5>
+          <div class="rating">★★★★★ 4.5 (250 reviews)</div>
+          <a href="#" class="btn">View Details</a>
+        </div>
+      </div>
+
+
+      <div class="garage-card">
+        <img src="jakob-rosen-JUkrwViCvyE-unsplash.jpg" alt="Garage" />
+        <div class="content">
+          <h3>AutoCare Premium</h3>
+          <div class="time">🕒Mon-Fri: 7:30 AM - 7:00 PM</div>
+          <div class="location">📍123 Auto Steet,Carville,CA 90210</div>
+          <div class="services">
+            <h5>Services</h5>
+            <span style="background:#e0f2fe">Oil Change - $45</span>
+            <span style="background:#dcfce7">Tire Rotation - $25</span>
+            <span style="background:#fef9c3">Brake Inspection - $30</span>
+          </div>
+          <h5>Rating</h5>
+          <div class="rating">★★★★★ 4.5 (250 reviews)</div>
+          <a href="#" class="btn">View Details</a>
+        </div>
+      </div>
+
+      <div class="garage-card">
+        <img src="jakob-rosen-JUkrwViCvyE-unsplash.jpg" alt="Garage" />
+        <div class="content">
+          <h3>AutoCare Premium</h3>
+          <div class="time">🕒Mon-Fri: 7:30 AM - 7:00 PM</div>
+          <div class="location">📍123 Auto Street, Carville, CA </div>
+
+          <div class="services">
+            <h5>Services</h5>
+            <span style="background:#e0f2fe">Oil Change - $45</span>
+            <span style="background:#dcfce7">Tire Rotation - $25</span>
+            <span style="background:#fef9c3">Brake Inspection - $30</span>
+          </div>
+          <h5>Rating</h5>
+          <div class="rating">★★★★★ 4.5 (250 reviews)</div>
+          <a href="#" class="btn">View Details</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('show');
+    }
+  </script>
+</body>
+
+</html>

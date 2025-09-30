@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Profile</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f5f7; 
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .profile-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .profile-image {
+      text-align: center;
+      flex: 1 1 160px;
+    }
+
+    .profile-image img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+
+    .upload-btn {
+      background:purple;
+      color: white;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .upload-info {
+      font-size: 12px;
+      color: gray;
+      margin-top: 5px;
+    }
+
+    .form-fields {
+      flex: 2 1 300px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .form-actions {
+      text-align: right;
+      margin-top: 10px;
+    }
+
+    .btn {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .btn-cancel {
+      background: #e5e7eb;
+      color: #333;
+      margin-right: 10px;
+    }
+
+    .btn-save {
+      background:purple;
+      color: white;
+    }
+
+    /* Saved Vehicles Section */
+    .vehicle-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .add-vehicle-btn {
+      background:purple;
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .vehicle-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .vehicle-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 12px 16px;
+    }
+
+    .vehicle-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .vehicle-icon {
+      font-size: 20px;
+      color:purple;
+    }
+
+    .vehicle-text {
+      font-size: 14px;
+    }
+
+    .vehicle-text p:first-child {
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .vehicle-text p:last-child {
+      margin: 0;
+      font-size: 13px;
+      color: gray;
+    }
+
+    .vehicle-actions button {
+      background: none;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    .edit {
+      color: #4b5563;
+    }
+
+    .delete {
+      color: #dc2626;
+    }
+
+    @media (max-width: 768px) {
+      .vehicle-item,
+      .vehicle-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .form-actions {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>My Profile</h1>
+
+    <!-- Edit Information -->
+    <div class="card">
+      <div class="section-title">Edit Information</div>
+      <div class="profile-form">
+        <!-- Image Upload -->
+        <div class="profile-image">
+          <img src="user-profile-3d-icon-avatar-600nw-2247726743.webp" alt="Profile" />
+          <label class="upload-btn">
+            Upload Your Image
+            <input type="file" hidden />
+          </label>
+          <div class="upload-info">PNG, JPG, GIF up to 10MB</div>
+        </div>
+
+        <!-- Form Fields -->
+        <div class="form-fields">
+          <div>
+            <label>First Name</label>
+            <input type="text" value="" />
+          </div>
+          <div>
+            <label>Last Name</label>
+            <input type="text" value="" />
+          </div>
+          <div>
+            <label>Email</label>
+            <input type="email" value="" />
+          </div>
+          <div>
+            <label>Phone Number</label>
+            <input type="phone number" value="" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="form-actions">
+        <button class="btn btn-cancel">Cancel</button>
+        <button class="btn btn-save">Save Changes</button>
+      </div>
+    </div>
+
+    <!-- Saved Vehicles -->
+    <div class="card">
+      <div class="vehicle-header">
+        <div class="section-title">Saved Vehicles</div>
+        <button class="add-vehicle-btn">+ Add New Vehicle</button>
+      </div>
+
+      <div class="vehicle-list">
+        <!-- Vehicle 1 -->
+        <div class="vehicle-item">
+          <div class="vehicle-info">
+            <div class="vehicle-icon">🚗</div>
+            <div class="vehicle-text">
+              <p>Toyota Camry</p>
+              <p>2021 | Sedan</p>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <button class="edit">✏️</button>
+            <button class="delete">🗑️</button>
+          </div>
+        </div>
+
+        <!-- Vehicle 2 -->
+        <div class="vehicle-item">
+          <div class="vehicle-info">
+            <div class="vehicle-icon">🚚</div>
+            <div class="vehicle-text">
+              <p>Ford F-150</p>
+              <p>2022 | Truck</p>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <button class="edit">✏️</button>
+            <button class="delete">🗑️</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

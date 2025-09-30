@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    /* Root Variables */
+    :root {
+        --purple: #800080;
+        --light-purple: #f3e5f5;
+    }
+
+    /* Global Reset */
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #ffffff;
+        color: #333;
+        overflow: hidden;
+    }
+
+    /* Purple Buttons */
+    .btn-purple {
+        background-color: var(--purple);
+        color: #fff;
+        border: none;
+        transition: background-color 0.3s;
+    }
+
+    .btn-purple:hover {
+        background-color: #6a1b9a;
+    }
+
+    .btn-outline-purple {
+        border: 1.5px solid var(--purple);
+        color: var(--purple);
+        background-color: transparent;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .btn-outline-purple:hover {
+        background-color: var(--light-purple);
+        color: var(--purple);
+    }
+
+    /* Sidebar Steps */
+    .steps {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        padding-left: 10px;
+        border-left: 2px solid #eee;
+    }
+
+    .step {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 10px 0;
+        color: #666;
+    }
+
+    .step i {
+        font-size: 20px;
+        color: var(--purple);
+        margin-top: 2px;
+    }
+
+    .step.active {
+        font-weight: 600;
+        background-color: var(--light-purple);
+        padding: 12px;
+        border-radius: 6px;
+        border-left: 3px solid var(--purple);
+    }
+
+    .step.disabled {
+        opacity: 0.6;
+    }
+
+    /* Form Area */
+    .form-area {
+        background-color: #fff;
+        padding: 10px 20px;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        margin: auto;
+        max-width: 550px;
+    }
+
+
+    /* Inputs */
+    .form-control,
+    .form-select {
+        border-radius: 8px;
+        font-size: 15px;
+        padding: 5px 10px;
+    }
+
+
+
+    /* Responsive */
+    @media (max-width: 992px) {
+        .steps {
+            display: none;
+        }
+
+        .form-area {
+            padding: 20px 15px;
+        }
+
+        .navbar-nav {
+            gap: 0.5rem;
+        }
+
+        .ms-auto {
+            margin-left: 0 !important;
+        }
+
+        .navbar-collapse {
+            justify-content: center;
+        }
+    }
+</style>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Garage Details - Smart Delivery</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" defer></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm py-3">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-purple" href="#">Garage Diary</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav gap-3">
+                    <li class="nav-item"><a class="nav-link" href="#">How it works</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Find Garages</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Reviews</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">For Garage Owners</a></li>
+                </ul>
+            </div>
+
+            <div class="d-flex gap-2 ms-auto">
+                <a href="#" class="btn btn-outline-purple">Sign in</a>
+                <a href="#" class="btn btn-purple">Get started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid px-0 py-1">
+        <div class="row g-2">
+
+            <!-- Left Sidebar (Steps) -->
+            <div class="col-lg-3 d-none d-lg-block">
+                <div class="steps">
+                    <div class="step disabled">
+                        <i class="bi bi-person"></i>
+                        <div>
+                            <strong>Your details</strong><br>
+                            <span class="text-muted small">Please provide your details information.</span>
+                        </div>
+                    </div>
+
+                    <div class="step active">
+                        <i class="bi bi-envelope"></i>
+                        <div>
+                            <strong>Garage Information</strong><br>
+                            <span class="text-muted small">Tell us about your garage and services.</span>
+                        </div>
+                    </div>
+
+                    <div class="step disabled">
+                        <i class="bi bi-file-earmark-text"></i>
+                        <div>
+                            <strong>Document Verification</strong><br>
+                            <span class="text-muted small">Please provide required documents</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Form Area -->
+            <div class="col-lg-9">
+                <div class="form-area mx-auto">
+                    <h4 class="text-center mb-0">Garage Details</h4>
+                    <p class="text-center text-muted mb-0">Welcome Ya! Please set your information.</p>
+
+                    <form>
+                        <div class="mb-0">
+                            <label for="garageName" class="form-label">Garage name*</label>
+                            <input type="text" class="form-control" id="garageName" placeholder="Enter your garage name"
+                                required />
+                        </div>
+
+                        <div class="mb-0">
+                            <label for="address" class="form-label">Address*</label>
+                            <input type="text" class="form-control" id="address" placeholder="Enter your address"
+                                required />
+                        </div>
+
+                        <div class="mb-0">
+                            <label for="services" class="form-label">Services offered*</label>
+                            <select class="form-select" id="services">
+                                <option selected disabled>Choose a service</option>
+                                <option>Two wheeler services</option>
+                                <option>Car servicing</option>
+                                <option>Three wheeler servicing</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-0">
+                            <label for="car servicing" class="form-label"></label>
+                            <input type="text" class="form-control" id="car servicing" placeholder="Car Servicing"
+                                required />
+                        </div>
+
+                        <div class="mb-0">
+                            <label for="Three wheeler Servicing" class="form-label"></label>
+                            <input type="text" class="form-control" id="Three wheeler Servicing"
+                                placeholder="Three wheeler Servicing" required />
+                        </div>
+                        <button type="submit" class="btn btn-purple w-100 rounded-pill">Continue</button>
+                    </form>
+
+                    <p class="text-center small mt-1">
+                        Already have an account? <a href="#" class="text-purple">Sign in</a>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</body>
+</html>
