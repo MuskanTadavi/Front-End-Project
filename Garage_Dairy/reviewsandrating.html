@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reviews & Ratings</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        ``` body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f7f9fb;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: #fff;
+            padding: 20px;
+            border-right: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: left 0.3s ease;
+        }
+
+        .sidebar .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: purple;
+            margin-bottom: 20px;
+        }
+
+        .sidebar nav a {
+            text-decoration: none;
+            color: #333;
+            padding: 10px 12px;
+            display: block;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar nav a:hover,
+        .sidebar nav a.active {
+            background: #f0e8ff;
+            color: purple;
+        }
+
+        .bottom-links a {
+            text-decoration: none;
+            color: #333;
+            padding: 8px 12px;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .bottom-links a:hover {
+            color: purple;
+        }
+
+        .user {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .user img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        /* Main */
+        main {
+            flex: 1;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .header-text h1 {
+            font-size: 1.6rem;
+            color: purple;
+        }
+
+        .header-text .subtitle {
+            color: #777;
+            font-size: 0.95rem;
+        }
+
+        header .menu-toggle {
+            display: none;
+            font-size: 26px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: purple;
+        }
+
+        /* Summary */
+        .summary {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .rating-box {
+            text-align: center;
+            min-width: 150px;
+        }
+
+        .rating-box .score {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: purple;
+        }
+
+        .stars {
+            font-size: 1.2rem;
+            color: #ffb400;
+        }
+
+        .distribution {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .distribution div {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .distribution span:first-child {
+            width: 20px;
+            text-align: center;
+        }
+
+        .distribution span:last-child {
+            width: 35px;
+            text-align: right;
+            font-size: 0.9rem;
+        }
+
+        .bar {
+            height: 10px;
+            flex: 1;
+            background: #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 4px;
+        }
+
+        .five {
+            background: linear-gradient(90deg, #4caf50, #81c784);
+        }
+
+        .four {
+            background: linear-gradient(90deg, #8bc34a, #c5e1a5);
+        }
+
+        .three {
+            background: linear-gradient(90deg, #ff9800, #ffb74d);
+        }
+
+        .two {
+            background: linear-gradient(90deg, #f44336, #e57373);
+        }
+
+        .one {
+            background: linear-gradient(90deg, #d32f2f, #f06292);
+        }
+
+        /* Reviews */
+        .reviews h2 {
+            margin-bottom: 15px;
+            color: purple;
+        }
+
+        .review-card {
+            background: #fff;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .user-info strong {
+            display: block;
+            font-size: 1rem;
+        }
+
+        .user-info span {
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        .review-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .actions {
+            color: #555;
+            font-size: 14px;
+        }
+
+        .load-more {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .load-more button {
+            padding: 10px 20px;
+            background: purple;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .load-more button:hover {
+            background: #5a0da1;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .summary {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: -250px;
+                height: 100%;
+                z-index: 999;
+                transition: all 0.3s ease;
+            }
+
+            .sidebar.open {
+                left: 0;
+                box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+            }
+
+            main {
+                width: 100%;
+                padding: 15px;
+            }
+
+            header {
+                justify-content: space-between;
+            }
+
+            header .menu-toggle {
+                display: block;
+            }
+        }
+
+        ```
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div>
+                <div class="logo">GarageDiary</div>
+                <nav>
+                    <a href="#">Dashboard</a>
+                    <a href="#">Bookings</a>
+                    <a href="#">Customers</a>
+                    <a href="#">Performance</a>
+                    <a href="#" class="active">Reviews & Ratings</a>
+                    <a href="#">Marketing</a>
+                </nav>
+            </div>
+            <div class="bottom-links">
+                <a href="#">My Profile</a>
+                <a href="#">Support</a>
+                <a href="#">Settings</a>
+                <div class="user">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Frankie" />
+                    <div>
+                        <p>Frankie Sullivan</p>
+                        <span>@frankie</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        ```
+        <!-- Main -->
+        <main>
+            <header>
+                <button class="menu-toggle" id="menuToggle">☰</button>
+                <div class="header-text">
+                    <h1>Reviews</h1>
+                    <p class="subtitle">See what customers are saying about your services</p>
+                </div>
+            </header>
+
+            <!-- Summary -->
+            <section class="summary">
+                <div class="rating-box">
+                    <div class="score">4.8</div>
+                    <div class="stars">★★★★☆</div>
+                    <p>120 reviews</p>
+                </div>
+                <div class="distribution">
+                    <div><span>5</span>
+                        <div class="bar">
+                            <div class="bar-fill five" style="width:75%"></div>
+                        </div><span>75%</span>
+                    </div>
+                    <div><span>4</span>
+                        <div class="bar">
+                            <div class="bar-fill four" style="width:30%"></div>
+                        </div><span>30%</span>
+                    </div>
+                    <div><span>3</span>
+                        <div class="bar">
+                            <div class="bar-fill three" style="width:10%"></div>
+                        </div><span>10%</span>
+                    </div>
+                    <div><span>2</span>
+                        <div class="bar">
+                            <div class="bar-fill two" style="width:5%"></div>
+                        </div><span>5%</span>
+                    </div>
+                    <div><span>1</span>
+                        <div class="bar">
+                            <div class="bar-fill one" style="width:3%"></div>
+                        </div><span>3%</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reviews -->
+            <section class="reviews">
+                <h2>All Reviews</h2>
+
+                <div class="review-card">
+                    <div class="user-info">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="">
+                        <div>
+                            <strong>Sophia Clark</strong>
+                            <span>2 weeks ago</span>
+                        </div>
+                    </div>
+                    <p>Excellent service! The technician, Alex, was professional, knowledgeable, and fixed my car
+                        quickly. Highly recommend!</p>
+                    <div class="review-footer">
+                        <div class="stars">★★★★★</div>
+                        <div class="actions">👍 15 &nbsp;&nbsp; 💬 2</div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="user-info">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="">
+                        <div>
+                            <strong>Ethan Carter</strong>
+                            <span>1 month ago</span>
+                        </div>
+                    </div>
+                    <p>Good experience overall. The service was a bit slow, but the issue was resolved effectively. The
+                        staff was friendly.</p>
+                    <div class="review-footer">
+                        <div class="stars">★★★★☆</div>
+                        <div class="actions">👍 11 &nbsp;&nbsp; 💬 2</div>
+                    </div>
+                </div>
+
+                <div class="load-more">
+                    <button>Load More</button>
+                </div>
+            </section>
+        </main>
+        ```
+
+    </div>
+
+    <script>
+        const toggleBtn = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+
+        toggleBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+    </script>
+
+</body>
+
+</html>

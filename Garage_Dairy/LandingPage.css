@@ -1,4 +1,83 @@
 
+.hero {
+  background: url('landing page background img.jpg') center/cover no-repeat;
+  color: white;
+  text-align: center;
+  padding: 10px 20px;
+  position: relative;
+}
+.hero-overlay {
+  background: rgba(0,0,0,0.55);
+  padding: 60px 20px;
+  border-radius: 10px;
+}
+.search-bar input {
+  border-radius: 8px;
+  padding: 12px;
+}
+.garage-card {
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-bottom: 15px;
+  padding: 15px;
+}
+.rating {
+  font-size: 0.9rem;
+  color: #f39c12;
+}
+/* Responsive Map */
+.map-container {
+  border-radius: 10px;
+  overflow: hidden;
+  min-height: 350px;
+}
+
+
+
+
+
+/* Purple Theme Buttons */
+.btn-purple {
+  background-color: #800080;   /* solid purple */
+  color: #fff;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-purple:hover {
+  background-color: #5a005a;   /* darker purple on hover */
+  color: #fff;
+}
+
+/* Outline Purple Button */
+.btn-outline-purple {
+  color: #800080;
+  border: 2px solid #800080;
+  background-color: transparent;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-purple:hover {
+  background-color: #800080;
+  color: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .colorp {
     color:#6c2eb9;
     border: 1px solid #6c2eb9;

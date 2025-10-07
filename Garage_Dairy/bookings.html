@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GarageDiary - Bookings</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background: #f9f9fb;
+      color: #333;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 250px;
+      background: #fff;
+      border-right: 1px solid #eee;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      transition: left 0.3s ease;
+      z-index: 1000;
+    }
+
+    .sidebar .logo {
+      font-weight: 700;
+      font-size: 20px;
+      color: purple;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sidebar nav a {
+      display: block;
+      padding: 10px 0;
+      color: #333;
+      text-decoration: none;
+      font-size: 15px;
+      border-radius: 8px;
+    }
+
+    .sidebar nav a:hover,
+    .sidebar nav a.active {
+      background: #f3e8ff;
+      color: purple;
+      font-weight: 600;
+      padding-left: 10px;
+      transition: 0.2s;
+    }
+
+    .bottom-links a {
+      display: block;
+      color: #333;
+      font-size: 14px;
+      text-decoration: none;
+      margin-bottom: 8px;
+    }
+
+    .bottom-links a:hover {
+      color: purple;
+    }
+
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .user img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    main {
+      flex: 1;
+      margin-left: 250px;
+      padding: 30px;
+      width: 100%;
+      transition: margin-left 0.3s ease;
+    }
+
+    header h1 {
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    header p {
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 20px;
+      border-bottom: 2px solid #eee;
+      margin-bottom: 20px;
+    }
+
+    .tabs button {
+      background: none;
+      border: none;
+      font-size: 16px;
+      padding-bottom: 10px;
+      cursor: pointer;
+      color: #666;
+      position: relative;
+    }
+
+    .tabs button.active {
+      color: purple;
+      font-weight: 600;
+    }
+
+    .tabs button.active::after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: purple;
+    }
+
+    /* Table */
+    .table-container {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    thead {
+      background: #fafafa;
+    }
+
+    th,
+    td {
+      padding: 15px 20px;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      color: #666;
+      font-weight: 600;
+    }
+
+    td {
+      color: #333;
+    }
+
+    .status {
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .pending {
+      background: #fff9db;
+      color: #b59000;
+    }
+
+    .in-progress {
+      background: #e0e7ff;
+      color: #3446eb;
+    }
+
+    .completed {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .cancelled {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .actions a {
+      text-decoration: none;
+      font-weight: 500;
+      margin-right: 8px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .actions .accept {
+      color: #15803d;
+    }
+
+    .actions .reject {
+      color: #b91c1c;
+    }
+
+    .actions .update {
+      color: #3446eb;
+    }
+
+    .actions .invoice {
+      color: #16a34a;
+    }
+
+    .actions .details {
+      color: #b91c1c;
+    }
+
+    .new-booking {
+      background: linear-gradient(to right, #9b59b6, purple);
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      float: right;
+      margin-top: 20px;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.3);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px;
+      width: 400px;
+      max-width: 90%;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-content h2 {
+      margin-bottom: 20px;
+    }
+
+    .modal-content label {
+      display: block;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .modal-content input,
+    .modal-content textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .modal-content textarea {
+      height: 80px;
+      resize: vertical;
+    }
+
+    .form-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .cancel-button {
+      background-color: #eee;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .create-button {
+      background-color: purple;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    #rejectModal .create-button {
+      background-color: #b91c1c;
+    }
+
+    /* Responsive */
+    .menu-toggle {
+      display: none;
+      font-size: 26px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1100;
+      color: purple;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        left: -260px;
+      }
+
+      .sidebar.open {
+        left: 0;
+      }
+
+      main {
+        margin-left: 0;
+        padding: 20px;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      table {
+        font-size: 12px;
+      }
+
+      th,
+      td {
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div>
+      <div class="logo">GarageDiary</div>
+      <nav>
+        <a href="#">Dashboard</a>
+        <a href="#" class="active">Bookings</a>
+        <a href="#">Customers</a>
+        <a href="#">Performance</a>
+        <a href="#">Reviews & Ratings</a>
+        <a href="#">Marketing</a>
+      </nav>
+    </div>
+    <div class="bottom-links">
+      <a href="#"><i class="bi bi-person"></i> My Profile</a>
+      <a href="#"><i class="bi bi-headset"></i> Support</a>
+      <a href="#"><i class="bi bi-gear"></i> Settings</a>
+      <div class="user">
+        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Frankie" />
+        <div>
+          <p>Frankie Sullivan</p>
+          <span>@frankie</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Toggle -->
+  <button class="menu-toggle" id="menuToggle"><i class="bi bi-list"></i></button>
+
+  <!-- Main -->
+  <main>
+    <header>
+      <h1>Bookings</h1>
+      <p>Manage your bookings and update job statuses.</p>
+    </header>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="active" data-status="all">Pending</button>
+      <button data-status="in-progress">In-progress</button>
+      <button data-status="completed">Completed</button>
+      <button data-status="cancelled">Cancelled</button>
+    </div>
+
+    <!-- Table -->
+    <div class="table-container">
+      <table id="bookingTable">
+        <thead>
+          <tr>
+            <th>BOOKING ID</th>
+            <th>CUSTOMER</th>
+            <th>SERVICE</th>
+            <th>DATE</th>
+            <th>TIME</th>
+            <th>STATUS</th>
+            <th>ACTIONS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-status="pending">
+            <td>#12345</td>
+            <td>Ethan Harper</td>
+            <td>Oil Change</td>
+            <td>2024-03-15</td>
+            <td>10:00 AM</td>
+            <td><span class="status pending">Pending</span></td>
+            <td class="actions">
+              <a class="accept">Accept</a>
+              <a class="reject">Reject</a>
+            </td>
+          </tr>
+          <tr data-status="completed">
+            <td>#12347</td>
+            <td>Emma Stone</td>
+            <td>Car Wash</td>
+            <td>2024-03-17</td>
+            <td>11:30 AM</td>
+            <td><span class="status completed">Completed</span></td>
+            <td class="actions">
+              <a class="invoice">Generate Invoice</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <button class="new-booking">+ New Booking</button>
+  </main>
+
+  <!-- New Booking Modal -->
+  <div id="bookingModal" class="modal">
+    <div class="modal-content">
+      <h2>New Booking</h2>
+      <form>
+        <label>Customer Name</label>
+        <input type="text" placeholder="Enter customer name" required />
+
+        <label>Email</label>
+        <input type="email" placeholder="Enter customer email" required />
+
+        <label>Number</label>
+        <input type="tel" placeholder="Enter customer number" required />
+
+        <label>Problems / Servicing</label>
+        <textarea placeholder="Describe the issue" required></textarea>
+
+        <label>Location for Pickup</label>
+        <input type="text" placeholder="Enter pickup location" required />
+
+        <div class="form-buttons">
+          <button type="button" class="cancel-button" id="cancelBooking">Cancel</button>
+          <button type="submit" class="create-button">Create Booking</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Reject Modal -->
+  <div id="rejectModal" class="modal">
+    <div class="modal-content">
+      <h2>Reject Booking</h2>
+      <form>
+        <label>Reason for Rejection</label>
+        <textarea placeholder="Enter reason for rejection" required></textarea>
+        <div class="form-buttons">
+          <button type="button" class="cancel-button" id="cancelReject">Cancel</button>
+          <button type="submit" class="create-button">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+ <!-- Invoice Modal -->
+<div id="invoiceModal" class="modal">
+  <div class="modal-content">
+    <!-- Header & Booking Info -->
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+      <div>
+        <h2 style="color:purple; font-weight:700; font-size:18px; margin-bottom:4px;">GarageDiary</h2>
+        <p style="font-size:12px; color:#555; line-height:1.4;">
+          123 Main Street, City<br>
+          Phone: +91 9876543210<br>
+          Email: support@garagediary.com
+        </p>
+      </div>
+      <div style="text-align:right;">
+        <h3 style="margin:0; color:#333; font-size:15px;">Invoice</h3>
+        <p style="margin:2px 0; font-size:12px;"><strong>#12347</strong></p>
+        <p style="margin:2px 0; font-size:12px; color:#555;">Date: 2024-03-17</p>
+      </div>
+    </div>
+
+    <!-- Customer Info -->
+    <div style="background:#f3e8ff; padding:10px; border-radius:8px; font-size:12px; margin-bottom:12px;">
+      <p style="margin:2px 0;"><strong>Customer:</strong> Emma Stone</p>
+      <p style="margin:2px 0;"><strong>Service:</strong> Car Wash</p>
+      <p style="margin:2px 0;"><strong>Time:</strong> 11:30 AM</p>
+      <p style="margin:2px 0;"><strong>Status:</strong> <span class="status completed" style="padding:3px 8px; border-radius:12px; font-size:11px;">Completed</span></p>
+    </div>
+
+    <!-- Service Details -->
+    <h3 style="margin-bottom:6px; color:purple; font-size:14px;">Service Details</h3>
+    <table style="width:100%; border-collapse:collapse; margin-bottom:10px; font-size:11px;">
+      <thead style="background:#f3e8ff; color:purple;">
+        <tr>
+          <th style="padding:6px; border:1px solid #ddd;">Description</th>
+          <th style="padding:6px; border:1px solid #ddd;">Price</th>
+          <th style="padding:6px; border:1px solid #ddd;">Tax (%)</th>
+          <th style="padding:6px; border:1px solid #ddd;">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background:#fff;">
+          <td style="padding:6px; border:1px solid #ddd;">Car Wash (Exterior & Interior)</td>
+          <td style="padding:6px; border:1px solid #ddd;">400</td>
+          <td style="padding:6px; border:1px solid #ddd;">5</td>
+          <td style="padding:6px; border:1px solid #ddd;">420</td>
+        </tr>
+        <tr style="background:#f9f9f9;">
+          <td style="padding:6px; border:1px solid #ddd;">Wax Coating</td>
+          <td style="padding:6px; border:1px solid #ddd;">300</td>
+          <td style="padding:6px; border:1px solid #ddd;">5</td>
+          <td style="padding:6px; border:1px solid #ddd;">315</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Additional Charges -->
+    <h3 style="margin-bottom:6px; color:purple; font-size:14px;">Additional Charges</h3>
+    <table style="width:100%; border-collapse:collapse; margin-bottom:10px; font-size:11px;">
+      <thead style="background:#f3e8ff; color:purple;">
+        <tr>
+          <th style="padding:6px; border:1px solid #ddd;">Description</th>
+          <th style="padding:6px; border:1px solid #ddd;">Amount</th>
+          <th style="padding:6px; border:1px solid #ddd;">Tax (%)</th>
+        </tr>
+      </thead>
+      <tbody id="summaryTable">
+        <tr>
+          <td><input type="text" placeholder="Description" style="width:100%; padding:4px; border:1px solid #ccc; border-radius:4px;"></td>
+          <td><input type="number" placeholder="Amount" style="width:100%; padding:4px; border:1px solid #ccc; border-radius:4px;"></td>
+          <td><input type="number" placeholder="Tax" style="width:100%; padding:4px; border:1px solid #ccc; border-radius:4px;"></td>
+        </tr>
+      </tbody>
+    </table>
+    <button id="addCharge" style="background:purple; color:white; border:none; padding:6px 10px; border-radius:6px; margin-bottom:12px; cursor:pointer; font-size:12px;">+ Add Row</button>
+
+    <!-- Total -->
+    <div style="text-align:right; margin-bottom:12px;">
+      <div style="display:inline-block; background:purple; color:white; padding:8px 14px; border-radius:6px; font-size:13px;">
+        <p style="margin:0;">Grand Total: <strong>₹735</strong></p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <p style="text-align:center; font-weight:600; color:#16a34a; font-size:12px; margin-bottom:10px;">Thank you for choosing GarageDiary!</p>
+
+    <div style="text-align:center;">
+      <button type="button" class="cancel-button" id="cancelInvoice" style="padding:6px 12px; margin-right:6px; font-size:12px;">Close</button>
+      <button type="button" class="create-button" onclick="window.print()" style="font-size:12px;">Download / Print</button>
+    </div>
+  </div>
+</div>
+
+  
+
+  <script>
+    // Sidebar Toggle
+    const toggleBtn = document.getElementById("menuToggle");
+    const sidebar = document.getElementById("sidebar");
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("open");
+    });
+
+    // Tabs
+    const tabs = document.querySelectorAll(".tabs button");
+    const rows = document.querySelectorAll("#bookingTable tbody tr");
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        tabs.forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+        const status = tab.dataset.status;
+        rows.forEach(row => {
+          if (status === "all" || row.dataset.status === status) row.style.display = "";
+          else row.style.display = "none";
+        });
+      });
+    });
+
+    // New Booking Modal
+    const bookingModal = document.getElementById("bookingModal");
+    const newBookingBtn = document.querySelector(".new-booking");
+    const cancelBooking = document.getElementById("cancelBooking");
+    newBookingBtn.addEventListener("click", () => bookingModal.style.display = "flex");
+    cancelBooking.addEventListener("click", () => bookingModal.style.display = "none");
+
+    // Reject Modal
+    const rejectModal = document.getElementById("rejectModal");
+    document.querySelectorAll(".reject").forEach(btn => {
+      btn.addEventListener("click", e => {
+        e.preventDefault();
+        rejectModal.style.display = "flex";
+      });
+    });
+    document.getElementById("cancelReject").addEventListener("click", () => rejectModal.style.display = "none");
+
+    // Invoice Modal
+    const invoiceModal = document.getElementById("invoiceModal");
+    document.querySelectorAll(".invoice").forEach(btn => {
+      btn.addEventListener("click", e => {
+        e.preventDefault();
+        invoiceModal.style.display = "flex";
+      });
+    });
+    document.getElementById("cancelInvoice").addEventListener("click", () => invoiceModal.style.display = "none");
+
+    // Close modal on click outside
+    window.addEventListener("click", e => {
+      if (e.target === bookingModal) bookingModal.style.display = "none";
+      if (e.target === rejectModal) rejectModal.style.display = "none";
+      if (e.target === invoiceModal) invoiceModal.style.display = "none";
+    });
+
+    // Add additional charge row
+    document.getElementById("addCharge").addEventListener("click", () => {
+      const tbody = document.getElementById("summaryTable");
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td><input type="text" placeholder="Description" style="width:100%; padding:5px; border-radius:5px; border:1px solid #ccc;"/></td>
+        <td><input type="number" placeholder="Amount" style="width:100%; padding:5px; border-radius:5px; border:1px solid #ccc;"/></td>
+        <td><input type="number" placeholder="Tax" style="width:100%; padding:5px; border-radius:5px; border:1px solid #ccc;"/></td>
+      `;
+      tbody.appendChild(row);
+    });
+  </script>
+</body>
+
+</html>

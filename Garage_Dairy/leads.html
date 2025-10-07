@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leads Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Basic Reset & Body */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            background-color: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        /* Container for the whole page */
+        .page-container {
+            display: flex;
+            width: 100%;
+            max-width: 1400px; /* Adjust as needed */
+            background-color: #f4f6f8;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px; /* Adjust sidebar width */
+            background-color: #fff;
+            padding: 30px 20px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.03);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 12px 0 0 12px;
+        }
+
+        .sidebar-logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        .sidebar-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 15px;
+        }
+
+        .sidebar-nav a {
+            text-decoration: none;
+            color: #666;
+            font-size: 16px;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            border-radius: 8px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background-color: #e6f7ff; /* Light blue for active/hover */
+            color: #007bff; /* Primary blue */
+        }
+
+        .sidebar-nav a svg {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+            stroke: currentColor; /* Inherit color */
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex-grow: 1;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 0 12px 12px 0;
+        }
+
+        /* Header Section (Leads Title and Controls) */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .header-left h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+            margin: 0;
+        }
+
+        .header-left .active-members {
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-bar {
+            position: relative;
+            width: 250px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #333;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .search-bar input:focus {
+            border-color: #007bff;
+        }
+
+        .search-bar svg {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            width: 18px;
+            height: 18px;
+        }
+
+        .sort-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .sort-dropdown button {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: border-color 0.2s ease;
+        }
+
+        .sort-dropdown button:hover {
+            border-color: #007bff;
+        }
+
+        .sort-dropdown button svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Table Styles */
+        .table-container {
+            background-color: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th,
+        .data-table td {
+            text-align: left;
+            padding: 15px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+        }
+
+        .data-table th {
+            background-color: #f9f9f9;
+            color: #666;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+
+        .data-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table tbody tr:hover {
+            background-color: #fdfdfd;
+        }
+
+        .data-table td {
+            color: #333;
+        }
+
+        .status-tag {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .status-tag.active {
+            background-color: #e6ffed; /* Light green */
+            color: #28a745; /* Green */
+        }
+
+        .status-tag.inactive {
+            background-color: #ffe6e6; /* Light red */
+            color: #dc3545; /* Red */
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            padding: 0 10px;
+        }
+
+        .pagination-info {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .pagination-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pagination-controls button {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        }
+
+        .pagination-controls button:hover:not(.active),
+        .pagination-controls button:focus:not(.active) {
+            background-color: #f5f5f5;
+            border-color: #c0c0c0;
+        }
+
+        .pagination-controls button.active {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .pagination-controls button svg {
+            width: 16px;
+            height: 16px;
+        }
+
+    </style>
+</head>
+<body>
+
+<!---leads--->
+    <div class="page-container">
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="header">
+                <div class="header-left">
+                    <h1>Leads</h1>
+                    <div class="active-members">Active Members</div>
+                </div>
+                <div class="header-right">
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                        </svg>
+                    </div>
+                    <div class="sort-dropdown">
+                        <button>
+                            Short by: <span style="font-weight: 600;">Newest</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Customer Name</th>
+                            <th>Company</th>
+                            <th>Phone Number</th>
+                            <th>Email</th>
+                            <th>Country</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Jane Cooper</td>
+                            <td>Microsoft</td>
+                            <td>(225) 555-0118</td>
+                            <td>jane@microsoft.com</td>
+                            <td>United States</td>
+                            <td><span class="status-tag active">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td>Floyd Miles</td>
+                            <td>Yahoo</td>
+                            <td>(205) 555-0100</td>
+                            <td>floyd@yahoo.com</td>
+                            <td>Kiribati</td>
+                            <td><span class="status-tag inactive">Inactive</span></td>
+                        </tr>
+                        <tr>
+                            <td>Ronald Richards</td>
+                            <td>Adobe</td>
+                            <td>(302) 555-0107</td>
+                            <td>ronald@adobe.com</td>
+                            <td>Israel</td>
+                            <td><span class="status-tag inactive">Inactive</span></td>
+                        </tr>
+                        <tr>
+                            <td>Marvin Mckinney</td>
+                            <td>Tesla</td>
+                            <td>(252) 555-0128</td>
+                            <td>marvin@tesla.com</td>
+                            <td>Iran</td>
+                            <td><span class="status-tag active">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td>Jerome Bell</td>
+                            <td>Google</td>
+                            <td>(620) 555-0129</td>
+                            <td>jerome@google.com</td>
+                            <td>Réunion</td>
+                            <td><span class="status-tag active">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td>Kathryn Murphy</td>
+                            <td>Microsoft</td>
+                            <td>(406) 555-0120</td>
+                            <td>kathryn@microsoft.com</td>
+                            <td>Curaçao</td>
+                            <td><span class="status-tag active">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td>Jacob Jones</td>
+                            <td>Yahoo</td>
+                            <td>(208) 555-0112</td>
+                            <td>jacob@yahoo.com</td>
+                            <td>Brazil</td>
+                            <td><span class="status-tag active">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td>Kristin Watson</td>
+                            <td>Facebook</td>
+                            <td>(704) 555-0127</td>
+                            <td>kristin@facebook.com</td>
+                            <td>Åland Islands</td>
+                            <td><span class="status-tag inactive">Inactive</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination">
+                <div class="pagination-info">Showing data 1 to 8 of 256K entries</div>
+                <div class="pagination-controls">
+                    <button>&lt;</button>
+                    <button class="active">1</button>
+                    <button>2</button>
+                    <button>3</button>
+                    <button>4</button>
+                    <button>...</button>
+                    <button>40</button>
+                    <button>&gt;</button>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

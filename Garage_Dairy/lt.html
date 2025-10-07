@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GarageFinder</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    /* Hero Section */
+    .hero {
+      background: url('https://images.unsplash.com/photo-1601933470928-6b3f1c98d0a4') center/cover no-repeat;
+      color: white;
+      text-align: center;
+      padding: 100px 20px;
+      position: relative;
+    }
+    .hero-overlay {
+      background: rgba(0,0,0,0.55);
+      padding: 60px 20px;
+      border-radius: 10px;
+    }
+    .search-bar input {
+      border-radius: 8px;
+      padding: 12px;
+    }
+    .garage-card {
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-bottom: 15px;
+      padding: 15px;
+    }
+    .rating {
+      font-size: 0.9rem;
+      color: #f39c12;
+    }
+    /* Responsive Map */
+    .map-container {
+      border-radius: 10px;
+      overflow: hidden;
+      min-height: 350px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold text-purple" href="#">GarageFinder</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+            data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Find Garages</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">For Garage Owners</a></li>
+      </ul>
+      <div class="d-flex">
+        <a href="#" class="btn btn-outline-primary me-2">Sign in</a>
+        <a href="#" class="btn btn-primary">Get started</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container hero-overlay">
+    <h1 class="display-5 fw-bold">Find Trusted Garages, Instantly</h1>
+    <div class="row g-2 mt-4 justify-content-center search-bar">
+      <div class="col-md-4">
+        <input type="text" class="form-control" placeholder="Current location">
+      </div>
+      <div class="col-md-4">
+        <input type="text" class="form-control" placeholder="Enter location or postal code">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Garages + Map -->
+<section class="py-5">
+  <div class="container">
+    <div class="row g-4">
+      <!-- Left Column -->
+      <div class="col-lg-5">
+        <div class="garage-card">
+          <h6 class="fw-bold">Precision Auto Repair</h6>
+          <p class="mb-1 text-muted">123 Main Street, Anytown, USA</p>
+          <span class="rating">⭐ 4.2</span> (124 reviews)
+          <button class="btn btn-sm btn-outline-secondary float-end">Add review</button>
+          <small class="d-block text-muted">2.5 mi</small>
+        </div>
+        <div class="garage-card">
+          <h6 class="fw-bold">Mechanic Masters</h6>
+          <p class="mb-1 text-muted">456 Oak Avenue, Anytown, USA</p>
+          <span class="rating">⭐ 4.7</span> (98 reviews)
+          <button class="btn btn-sm btn-outline-secondary float-end">Add review</button>
+          <small class="d-block text-danger">Closed - 3.1 mi</small>
+        </div>
+        <div class="garage-card">
+          <h6 class="fw-bold">City Car Care</h6>
+          <p class="mb-1 text-muted">789 Pine Street, Anytown, USA</p>
+          <span class="rating">⭐ 5.0</span> (210 reviews)
+          <button class="btn btn-sm btn-outline-secondary float-end">Add review</button>
+          <small class="d-block text-muted">4.5 mi</small>
+        </div>
+        <a href="#" class="d-block text-primary mt-3">View more garages</a>
+      </div>
+      <!-- Right Column (Map) -->
+      <div class="col-lg-7">
+        <div class="map-container">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18..." 
+                  width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
