@@ -98,36 +98,43 @@
     /* Main Content */
     .main {
       margin-left: 250px;
-      padding: 30px;
+      padding: 0 30px 30px 30px;
       flex: 1;
     }
 
-  
-    
-    .header {
+    /* Header Section */
+    .main-header {
       background: url('landing page background img.jpg') center/cover no-repeat;
       display: flex;
       align-items: center;
       gap: 20px;
-      margin-bottom: 30px;
-      height: 64px;
+      height: 90px;
+      position: relative;
     }
 
-    /* .header img {
+    .main-header img {
       width: 100px;
       border-radius: 50%;
       height: 100px;
       object-fit: cover;
       border: 3px solid var(--accent);
-    } */
+      margin-bottom: -110px;
+    }
 
-    /* .header-info h1 {
-      font-size: 26px;
+    .header-info-custom {
+      font-size: 10px;
       color: var(--primary);
-      margin-bottom: 8px;
-    } */
+      position: relative;
+      left: 10px;
+      top: 70px;
+    }
 
-    .social-icons i {
+    .header-info-custom h1 {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .social-icons-custom i {
       font-size: 20px;
       margin-right: 10px;
       color: var(--text-light);
@@ -135,11 +142,12 @@
       transition: color 0.3s ease;
     }
 
-    .social-icons i:hover {
+    .social-icons-custom i:hover {
       color: var(--accent);
     }
 
-    .tabs {
+    /* Tabs */
+    .tabs-custom {
       display: flex;
       gap: 20px;
       margin: 20px 0;
@@ -147,7 +155,7 @@
       margin-top: 62px;
     }
 
-    .tabs a {
+    .tabs-custom a {
       text-decoration: none;
       padding-bottom: 10px;
       border-bottom: 2px solid transparent;
@@ -156,21 +164,21 @@
       transition: all 0.3s ease;
     }
 
-    .tabs a.active,
-    .tabs a:hover {
+    .tabs-custom a.active,
+    .tabs-custom a:hover {
       border-color: var(--primary);
       color: var(--primary);
     }
 
-    /* Card Section */
-    .plan-section {
+    /* Plan & Social Cards Section */
+    .plan-section-custom {
       display: flex;
       flex-wrap: wrap;
       gap: 30px;
       margin-bottom: 40px;
     }
 
-    .card {
+    .card-custom {
       background: var(--card-bg);
       padding: 25px;
       border-radius: 15px;
@@ -179,24 +187,29 @@
       transition: transform 0.3s ease;
     }
 
-    .card:hover {
+    .card-custom:hover {
       transform: translateY(-5px);
     }
 
-    .card h3 {
+    .card-custom h3 {
       margin-bottom: 15px;
       font-size: 20px;
       color: var(--secondary);
     }
 
-    .price {
+    .card-custom h4 {
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .price-custom {
       font-size: 36px;
       font-weight: bold;
       margin: 20px 0 10px;
       color: var(--primary);
     }
 
-    .btn {
+    .btn-custom {
       display: inline-block;
       padding: 10px 20px;
       background: var(--primary);
@@ -209,21 +222,21 @@
       transition: background 0.3s ease;
     }
 
-    .btn:hover {
+    .btn-custom:hover {
       background: var(--secondary);
     }
 
-    ul {
+    ul.custom-list {
       margin-top: 15px;
       padding-left: 20px;
     }
 
-    ul li {
+    ul.custom-list li {
       margin-bottom: 8px;
       color: var(--text-light);
     }
 
-    .progress {
+    .progress-custom {
       background: #eee;
       height: 10px;
       border-radius: 5px;
@@ -231,14 +244,14 @@
       margin: 10px 0;
     }
 
-    .progress-bar {
+    .progress-bar-custom {
       background: var(--accent);
       height: 100%;
       width: 0%;
       transition: width 0.3s ease;
     }
 
-    .upgrade {
+    .upgrade-custom {
       color: var(--accent);
       font-weight: bold;
       font-size: 14px;
@@ -248,33 +261,33 @@
     }
 
     /* Mini Cards */
-    .social-profile-grid {
+    .social-profile-grid-custom {
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
       margin-top: 20px;
     }
 
-    .mini-card {
+    .mini-card-custom {
       flex: 1 1 calc(50% - 20px);
-      background: #f1f1f9;
+      background: white;
       padding: 15px;
       border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 2px 5px rgb(112, 106, 106);
     }
 
-    .mini-card .progress {
+    .mini-card-custom .progress-custom {
       height: 8px;
       margin: 8px 0;
     }
 
-    .mini-card .progress-bar {
+    .mini-card-custom .progress-bar-custom {
       height: 100%;
       background-color: var(--accent);
     }
 
     /* Leads Section */
-    .page-container {
+    .page-container-custom {
       margin-top: 40px;
       background: var(--card-bg);
       border-radius: 15px;
@@ -282,7 +295,7 @@
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
     }
 
-    .page-container .header {
+    .page-header-custom {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -290,29 +303,29 @@
       margin-bottom: 20px;
     }
 
-    .header-left h1 {
+    .header-left-custom h1 {
       color: var(--primary);
       font-size: 24px;
       margin-bottom: 5px;
     }
 
-    .header-right {
+    .header-right-custom {
       display: flex;
       align-items: center;
       gap: 15px;
     }
 
-    .search-bar {
+    .search-bar-custom {
       position: relative;
     }
 
-    .search-bar input {
+    .search-bar-custom input {
       padding: 8px 30px 8px 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
     }
 
-    .search-bar svg {
+    .search-bar-custom svg {
       position: absolute;
       right: 10px;
       top: 50%;
@@ -322,7 +335,7 @@
       color: #777;
     }
 
-    .sort-dropdown button {
+    .sort-dropdown-custom button {
       border: 1px solid #ccc;
       background: white;
       padding: 8px 12px;
@@ -330,41 +343,41 @@
       cursor: pointer;
     }
 
-    table {
+    table.custom-table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 20px;
     }
 
-    th,
-    td {
+    table.custom-table th,
+    table.custom-table td {
       padding: 10px;
       text-align: left;
       border-bottom: 1px solid #ddd;
     }
 
-    th {
+    table.custom-table th {
       background: #f0f0f8;
     }
 
-    .status-tag {
+    .status-tag-custom {
       padding: 4px 10px;
       border-radius: 12px;
       font-size: 12px;
       font-weight: bold;
     }
 
-    .status-tag.active {
+    .status-tag-active {
       background: #d1ffd1;
       color: green;
     }
 
-    .status-tag.inactive {
+    .status-tag-inactive {
       background: #ffe2e2;
       color: red;
     }
 
-    .pagination {
+    .pagination-custom {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -372,7 +385,7 @@
       flex-wrap: wrap;
     }
 
-    .pagination-controls button {
+    .pagination-controls-custom button {
       margin: 2px;
       border: 1px solid #ccc;
       background: white;
@@ -381,12 +394,83 @@
       cursor: pointer;
     }
 
-    .pagination-controls button.active {
+    .pagination-controls-custom button.active {
       background: var(--primary);
       color: white;
     }
 
-    /* Responsive */
+    /* Container for all single social cards */
+    .single-social-cards {
+  display:grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 20px;
+  margin-top: 30px;
+  border: 1px solid black;
+  padding: 20px;
+}
+
+.single-social-cards > div {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.single-social-cards > div:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.single-social-cards h3 {
+  color: purple;
+  margin-bottom: 10px;
+}
+
+.single-social-cards p {
+  margin: 8px 0;
+  color: #555;
+}
+
+.progress-1, .progress-2, .progress-3, .progress-4 {
+  background: #eee;
+  border-radius: 8px;
+  height: 8px;
+  margin: 10px 0;
+  overflow: hidden;
+}
+
+.progress-bar-1, .progress-bar-2, .progress-bar-3, .progress-bar-4 {
+  height: 100%;
+  background: purple;
+  border-radius: 8px;
+  transition: width 0.3s ease;
+}
+
+.upgrade-1, .upgrade-2, .upgrade-3, .upgrade-4 {
+  display: inline-block;
+  margin-top: 10px;
+  text-decoration: none;
+  color: white;
+  background: purple;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.upgrade-1:hover, .upgrade-2:hover, .upgrade-3:hover, .upgrade-4:hover {
+  background: #6a0dad;
+}
+
+/* Responsive: 1 column on small screens */
+@media (max-width: 768px) {
+  .single-social-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
     @media (max-width: 768px) {
       .sidebar {
         display: none;
@@ -397,43 +481,25 @@
         padding: 20px;
       }
 
-      .header {
+      .main-header {
         flex-direction: column;
         align-items: flex-start;
       }
 
-      .tabs {
+      .tabs-custom {
         flex-wrap: wrap;
       }
 
-      .plan-section {
+      .plan-section-custom {
         flex-direction: column;
       }
 
-      table {
+      table.custom-table {
         display: block;
         overflow-x: auto;
         white-space: nowrap;
       }
     }
-
-    
-     img {
-      width: 100px;
-      border-radius: 50%;
-      height: 100px;
-      object-fit: cover;
-      border: 3px solid var(--accent);
-      margin-bottom: -117px;
-    }
-
-    .header-info {
-    font-size: 10px;
-    color: var(--primary);
-    position: relative;
-    left: 109px;
-    top: 50px;
-}
   </style>
 </head>
 
@@ -443,11 +509,11 @@
   <div class="sidebar">
     <div>
       <h2>GarageDiary</h2>
-      <a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-      <a href="#"><i class="fas fa-calendar-check"></i> Bookings</a>
+      <a href="Dashboard2.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+      <a href="bookings.html"><i class="fas fa-calendar-check"></i> Bookings</a>
       <a href="#"><i class="fas fa-users"></i> Customers</a>
-      <a href="#"><i class="fas fa-chart-line"></i> Performance</a>
-      <a href="#"><i class="fas fa-star"></i> Reviews & Ratings</a>
+      <a href="performance.html"><i class="fas fa-chart-line"></i> Performance</a>
+      <a href="reviewsandrating.html"><i class="fas fa-star"></i> Reviews & Ratings</a>
       <a href="#"><i class="fas fa-bullhorn"></i> Marketing</a>
     </div>
 
@@ -468,13 +534,11 @@
   <!-- Main Content -->
   <div class="main">
     <!-- Header -->
-    <img src="user-profile-3d-icon-avatar-600nw-2247726743.webp" alt="Garage Logo">
-
-    <div class="header">
-
-      <div class="header-info">
+    <div class="main-header">
+      <img src="user-profile-3d-icon-avatar-600nw-2247726743.webp" alt="Garage Logo">
+      <div class="header-info-custom">
         <h1>Garage Name</h1>
-        <div class="social-icons">
+        <div class="social-icons-custom">
           <i class="fab fa-instagram"></i>
           <i class="fab fa-facebook"></i>
           <i class="fab fa-linkedin"></i>
@@ -484,7 +548,7 @@
     </div>
 
     <!-- Tabs -->
-    <div class="tabs">
+    <div class="tabs-custom">
       <a href="#" class="active">Dashboard</a>
       <a href="#">Bookings</a>
       <a href="#">Customers</a>
@@ -493,14 +557,14 @@
     </div>
 
     <!-- Plan & Social Cards Section -->
-    <div class="plan-section">
-      <!-- Basic Plan Card -->
-      <div class="card">
-        <h3>Basic Plan</h3>
-        <div class="price">₹999</div>
+    <div class="plan-section-custom">
+      <div class="card-custom">
+        <h3>Current Plan</h3>
+        <h4>Basic Plan</h4>
+        <div class="price-custom">₹999</div>
         <p>Per user, per month</p>
-        <a href="#" class="btn">Get Now</a>
-        <ul>
+        <a href="#" class="btn-custom">Get Now</a>
+        <ul class="custom-list">
           <li><i class="fas fa-check-circle"></i> Setup on Facebook</li>
           <li><i class="fas fa-check-circle"></i> Instagram Integration</li>
           <li><i class="fas fa-check-circle"></i> Google My Business</li>
@@ -509,94 +573,95 @@
         </ul>
       </div>
 
-      <!-- Social Profiles Card with 4 Mini Cards -->
-      <div class="card">
-        <h3>Social Profiles</h3>
+      <div class="card-custom">
+        <h3>Your Basic Plan</h3>
         <p>Manage your connected profiles below:</p>
-        <div class="social-profile-grid">
-          <div class="mini-card">
+        <div class="social-profile-grid-custom">
+          <div class="mini-card-custom">
             <p>4 of 10 profiles connected</p>
-            <div class="progress">
-              <div class="progress-bar" style="width: 40%;"></div>
+            <div class="progress-custom">
+              <div class="progress-bar-custom" style="width: 40%;"></div>
             </div>
             <p>You can connect up to <strong>10 profiles</strong>.</p>
-            <a href="#" class="upgrade">Upgrade now!</a>
+            <a href="#" class="upgrade-custom">Upgrade now!</a>
           </div>
-          <div class="mini-card">
+          <div class="mini-card-custom">
             <p>4 of 10 profiles connected</p>
-            <div class="progress">
-              <div class="progress-bar" style="width: 40%;"></div>
+            <div class="progress-custom">
+              <div class="progress-bar-custom" style="width: 40%;"></div>
             </div>
             <p>You can connect up to <strong>10 profiles</strong>.</p>
-            <a href="#" class="upgrade">Upgrade now!</a>
+            <a href="#" class="upgrade-custom">Upgrade now!</a>
           </div>
-          <div class="mini-card">
+          <div class="mini-card-custom">
             <p>4 of 10 profiles connected</p>
-            <div class="progress">
-              <div class="progress-bar" style="width: 40%;"></div>
+            <div class="progress-custom">
+              <div class="progress-bar-custom" style="width: 40%;"></div>
             </div>
             <p>You can connect up to <strong>10 profiles</strong>.</p>
-            <a href="#" class="upgrade">Upgrade now!</a>
+            <a href="#" class="upgrade-custom">Upgrade now!</a>
           </div>
-          <div class="mini-card">
+          <div class="mini-card-custom">
             <p>4 of 10 profiles connected</p>
-            <div class="progress">
-              <div class="progress-bar" style="width: 40%;"></div>
+            <div class="progress-custom">
+              <div class="progress-bar-custom" style="width: 40%;"></div>
             </div>
             <p>You can connect up to <strong>10 profiles</strong>.</p>
-            <a href="#" class="upgrade">Upgrade now!</a>
+            <a href="#" class="upgrade-custom">Upgrade now!</a>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Single Social Cards -->
-      <div class="card">
+    <!-- Single Social Cards -->
+    <div class="single-social-cards">
+      <div class="social-card-1">
         <h3>Social Profiles</h3>
         <p>4 of 10 profiles connected</p>
-        <div class="progress">
-          <div class="progress-bar" style="width: 40%;"></div>
+        <div class="progress-1">
+          <div class="progress-bar-1" style="width: 40%;"></div>
         </div>
         <p>You can connect up to <strong>10 profiles</strong>.</p>
-        <a href="#" class="upgrade">Upgrade now!</a>
+        <a href="#" class="upgrade-1">Upgrade now!</a>
       </div>
-      <div class="card">
+      <div class="social-card-2">
         <h3>Social Profiles</h3>
         <p>4 of 10 profiles connected</p>
-        <div class="progress">
-          <div class="progress-bar" style="width: 40%;"></div>
+        <div class="progress-2">
+          <div class="progress-bar-2" style="width: 40%;"></div>
         </div>
         <p>You can connect up to <strong>10 profiles</strong>.</p>
-        <a href="#" class="upgrade">Upgrade now!</a>
+        <a href="#" class="upgrade-2">Upgrade now!</a>
       </div>
-      <div class="card">
+      <div class="social-card-3">
         <h3>Social Profiles</h3>
         <p>4 of 10 profiles connected</p>
-        <div class="progress">
-          <div class="progress-bar" style="width: 40%;"></div>
+        <div class="progress-3">
+          <div class="progress-bar-3" style="width: 40%;"></div>
         </div>
         <p>You can connect up to <strong>10 profiles</strong>.</p>
-        <a href="#" class="upgrade">Upgrade now!</a>
+        <a href="#" class="upgrade-3">Upgrade now!</a>
       </div>
-      <div class="card">
+      <div class="social-card-4">
         <h3>Social Profiles</h3>
         <p>6 of 10 profiles connected</p>
-        <div class="progress">
-          <div class="progress-bar" style="width: 60%;"></div>
+        <div class="progress-4">
+          <div class="progress-bar-4" style="width: 60%;"></div>
         </div>
         <p>You can connect up to <strong>10 profiles</strong>.</p>
-        <a href="#" class="upgrade">Upgrade now!</a>
+        <a href="#" class="upgrade-4">Upgrade now!</a>
       </div>
     </div>
 
     <!-- Leads Section -->
-    <div class="page-container">
-      <div class="header">
-        <div class="header-left">
+    <div class="page-container-custom">
+      <div class="page-header-custom">
+        <div class="header-left-custom">
           <h1>Leads</h1>
           <div class="active-members">Active Members</div>
         </div>
-        <div class="header-right">
-          <div class="search-bar">
+        <div class="header-right-custom">
+          <div class="search-bar-custom">
             <input type="text" placeholder="Search">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
               stroke="currentColor">
@@ -604,10 +669,9 @@
                 d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
             </svg>
           </div>
-          <div class="sort-dropdown">
-            <button
-              style="display: flex; align-items: center; gap: 5px; font-weight: 500; border: 1px solid #ccc; background: white; padding: 8px 12px; border-radius: 5px; cursor: pointer;">
-              Sort by: <span style="font-weight:600;">Newest</span>
+          <div class="sort-dropdown-custom">
+            <button id="sortButton">
+              Sort by: <span id="sortOrder">Newest</span>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                 stroke="currentColor" style="width: 16px; height: 16px;">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -616,60 +680,81 @@
           </div>
         </div>
       </div>
-    </div>
 
-    <table class="data-table">
-      <thead>
-        <tr>
-          <th>Customer Name</th>
-          <th>Company</th>
-          <th>Phone Number</th>
-          <th>Email</th>
-          <th>Country</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Jane Cooper</td>
-          <td>Microsoft</td>
-          <td>(225) 555-0118</td>
-          <td>jane@microsoft.com</td>
-          <td>United States</td>
-          <td><span class="status-tag active">Active</span></td>
-        </tr>
-        <tr>
-          <td>Floyd Miles</td>
-          <td>Yahoo</td>
-          <td>(205) 555-0100</td>
-          <td>floyd@yahoo.com</td>
-          <td>Kiribati</td>
-          <td><span class="status-tag inactive">Inactive</span></td>
-        </tr>
-        <tr>
-          <td>Ronald Richards</td>
-          <td>Adobe</td>
-          <td>(302) 555-0107</td>
-          <td>ronald@adobe.com</td>
-          <td>United States</td>
-          <td><span class="status-tag active">Active</span></td>
-        </tr>
-      </tbody>
-    </table>
+      <table class="custom-table" id="leadsTable">
+        <thead>
+          <tr>
+            <th>Customer Name</th>
+            <th>Company</th>
+            <th>Phone Number</th>
+            <th>Email</th>
+            <th>Country</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Jane Cooper</td>
+            <td>Microsoft</td>
+            <td>(225) 555-0118</td>
+            <td>jane@microsoft.com</td>
+            <td>United States</td>
+            <td><span class="status-tag-custom status-tag-active">Active</span></td>
+          </tr>
+          <tr>
+            <td>many Cooper</td>
+            <td>google</td>
+            <td>(225) 555-0190</td>
+            <td>many@microsoft.com</td>
+            <td>uk</td>
+            <td><span class="status-tag-custom status-tag-active">Active</span></td>
+          </tr>
+          <tr>
+            <td>Floyd Miles</td>
+            <td>Yahoo</td>
+            <td>(205) 555-0100</td>
+            <td>floyd@yahoo.com</td>
+            <td>Kiribati</td>
+            <td><span class="status-tag-custom status-tag-inactive">Inactive</span></td>
+          </tr>
+        </tbody>
+      </table>
 
-    <div class="pagination">
-      <div class="pagination-info">Showing data 1 to 3 of 256K entries</div>
-      <div class="pagination-controls">
-        <button>&lt;</button>
-        <button class="active">1</button>
-        <button>2</button>
-        <button>3</button>
-        <button>&gt;</button>
+      <div class="pagination-custom">
+        <div class="pagination-info-custom">Showing data 1 to 3 of 256K entries</div>
+        <div class="pagination-controls-custom">
+          <button>&lt;</button>
+          <button class="active">1</button>
+          <button>2</button>
+          <button>3</button>
+          <button>&gt;</button>
+        </div>
       </div>
     </div>
   </div>
-  </div>
+
+  <script>
+    const sortButton = document.getElementById('sortButton');
+    const sortOrderSpan = document.getElementById('sortOrder');
+    const table = document.getElementById('leadsTable').getElementsByTagName('tbody')[0];
+
+    let ascending = true;
+
+    sortButton.addEventListener('click', () => {
+      const rows = Array.from(table.rows);
+      rows.sort((a, b) => {
+        const nameA = a.cells[0].innerText.toLowerCase();
+        const nameB = b.cells[0].innerText.toLowerCase();
+        if (nameA < nameB) return ascending ? -1 : 1;
+        if (nameA > nameB) return ascending ? 1 : -1;
+        return 0;
+      });
+
+      rows.forEach(row => table.appendChild(row));
+      ascending = !ascending;
+      sortOrderSpan.innerText = ascending ? "Newest" : "Oldest";
+    });
+  </script>
 
 </body>
-
 </html>
